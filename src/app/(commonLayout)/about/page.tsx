@@ -1,8 +1,8 @@
 "use client";
 
-export default function AboutPage() {
-    //* For simulating load time
-    // await new Promise((resolve) => setTimeout(resolve, 4000));
+export default  function AboutPage() {
+
+     //await new Promise((resolve) => setTimeout(resolve, 4000));
 
     //* For simulating error
     // throw new Error("Something went wrong");
