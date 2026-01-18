@@ -3,7 +3,7 @@ import { userServices } from "@/services/user.services";
 
 export default async function Home() {
     const { data, error } = await userServices.getSession();
-
+    console.log(data)
     return (
         <div>
             {data ? <p>Logged in</p> : <p>Not logged in</p>}
