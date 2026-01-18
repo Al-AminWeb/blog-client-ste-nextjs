@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
-import {authClient} from "@/lib/auth-client";
+import { userServices } from "@/services/user.services";
 
 export default async function Home() {
-    const session = await authClient.getSession();
-    console.log(session);
+    const { data, error } = await userServices.getSession();
+
     return (
         <div>
+            {data ? <p>Logged in</p> : <p>Not logged in</p>}
             <Button variant="outline">Click Here</Button>
         </div>
     );
