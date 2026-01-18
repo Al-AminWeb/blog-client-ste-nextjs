@@ -1,25 +1,26 @@
 import { cookies } from "next/headers";
-import {env} from "@/env";
-
-
+import { env } from "@/env";
 
 const AUTH_URL = env.AUTH_URL;
+
 export const userServices = {
     getSession: async function () {
         try {
-            const cookieStore = cookies();
+            const cookieStore = await cookies();
 
-            const res = await fetch(
-                `${AUTH_URL}/get-session`,
-                {
-                    headers: {
-                        Cookie: cookieStore.toString(),
-                    },
-                    cache: "no-cache",
-                }
-            );
+            // serialize cookies
+            const cookieHeader = cookieStore
+                .getAll()
+                .map(c => `${c.name}=${c.value}`)
+                .join("; ");
 
-            // No session (401 / 404)
+            const res = await fetch(`${AUTH_URL}/get-session`, {
+                headers: {
+                    Cookie: cookieHeader,
+                },
+                cache: "no-store",
+            });
+
             if (!res.ok) {
                 return { data: null, error: "No active session" };
             }
