@@ -2,10 +2,6 @@ import { env } from "@/env";
 
 const API_URL = env.API_URL;
 
-//* No Dynamic and No { cache: no-store } : SSG -> Static Page
-//* { cache: no-store } : SSR -> Dynamic Page
-//* next: { revalidate: 10 } : ISR -> Mix between static and dynamic
-
 interface ServiceOptions {
     cache?: RequestCache;
     revalidate?: number;
@@ -27,12 +23,12 @@ export const blogService = {
             if (params) {
                 Object.entries(params).forEach(([key, value]) => {
                     if (value !== undefined && value !== null && value !== "") {
-                        url.searchParams.append(key, value);
+                        url.searchParams.append(key, String(value));
                     }
                 });
             }
 
-            const config: RequestInit = {};
+            const config: RequestInit & { next?: { revalidate?: number } } = {};
 
             if (options?.cache) {
                 config.cache = options.cache;
@@ -43,15 +39,19 @@ export const blogService = {
             }
 
             const res = await fetch(url.toString(), config);
-
             const data = await res.json();
 
-            // This is an example
-            //   if(data.success) {
-            //     return
-            //   }
+            return { data, error: null };
+        } catch (err) {
+            return { data: null, error: { message: "Something Went Wrong" } };
+        }
+    },
 
-            return { data: data, error: null };
+    getBlogById: async function (id: string) {
+        try {
+            const res = await fetch(`${API_URL}/post/${id}`);
+            const data = await res.json();
+            return { data, error: null };
         } catch (err) {
             return { data: null, error: { message: "Something Went Wrong" } };
         }
