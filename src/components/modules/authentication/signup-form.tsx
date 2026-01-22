@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card"
 
 import {useForm} from "@tanstack/react-form";
-import {FieldGroup} from "@/components/ui/field";
+import {FieldGroup, FieldLabel} from "@/components/ui/field";
+import {Input} from "@/components/ui/input";
 
 export function SignupForm({...props}: React.ComponentProps<typeof Card>) {
 
@@ -20,7 +21,7 @@ export function SignupForm({...props}: React.ComponentProps<typeof Card>) {
             password: '',
         },
         onSubmit: ({value}) => {
-            console.log('Form submitted with values:');
+            console.log('Form submitted with values:', value);
         }
     })
 
@@ -41,25 +42,63 @@ export function SignupForm({...props}: React.ComponentProps<typeof Card>) {
                     }}>
 
 
-                  <FieldGroup>
+                    <FieldGroup>
+                        <form.Field
+                            name="name"
+                            children={(field) => {
+                                return (
+                                    <>
+                                        <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                                        <Input
+                                            type="text"
+                                            id={field.name}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                    </>
+                                );
+                            }}
+                        />
 
-                    <Form.Field
-                    name="name"
 
-                    children={()=><Field></Field>}
+                        <form.Field
+                            name="email"
+                            children={(field) => {
+                                return (
+                                    <>
+                                        <FieldLabel htmlFor={field.name}>email</FieldLabel>
+                                        <Input
+                                            type="email"
+                                            id={field.name}
+                                            name={field.name}
+                                            value={field.state.value}
+                                            onChange={(e) => field.handleChange(e.target.value)}
+                                        />
+                                    </>
+                                );
+                            }}
+                        />
+                    </FieldGroup>
+
+
+                    <form.Field
+                        name="password"
+                        children={(field) => {
+                            return (
+                                <>
+                                    <FieldLabel htmlFor={field.name}>password</FieldLabel>
+                                    <Input
+                                        type="password"
+                                        id={field.name}
+                                        name={field.name}
+                                        value={field.state.value}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                    />
+                                </>
+                            );
+                        }}
                     />
-                  </FieldGroup>
-
-
-
-
-
-
-
-
-
-
-
 
 
                 </form>
