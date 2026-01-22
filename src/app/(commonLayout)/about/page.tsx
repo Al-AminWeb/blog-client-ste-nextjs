@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import {blogService} from "@/services/blog.service";
+import {getBlogs} from "@/app/(commonLayout)/actions/blog.action";
 
 export default function AboutPage() {
 
@@ -10,7 +10,7 @@ export default function AboutPage() {
 
     useEffect(() => {
         (async () => {
-            const {data} = await blogService.getBlogPosts();
+            const {data} = await getBlogs();
             setData(data);
             console.log("About Page Data:", data);
         })();
