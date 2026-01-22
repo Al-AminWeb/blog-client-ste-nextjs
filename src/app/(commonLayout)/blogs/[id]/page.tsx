@@ -1,6 +1,8 @@
 import React from "react";
 import {blogService} from "@/services/blog.service";
 
+export  async  function generateStaticParams() {}
+
 
 export default async function BlogPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -38,7 +40,7 @@ export default async function BlogPage({ params }: { params: Promise<{ id: strin
 
                 {blog.tags && blog.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-8">
-                        {blog.tags.map((tag: any) => (
+                        {blog.tags.map((tag:any) => (
                             <span
                                 key={tag.id || tag}
                                 className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded"
