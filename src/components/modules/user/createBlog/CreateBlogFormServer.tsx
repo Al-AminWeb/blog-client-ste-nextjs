@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { env } from "@/env";
 import { cookies } from "next/headers";
+import {revalidateTag} from "next/cache";
 
 const API_URL = env.API_URL;
 
@@ -47,6 +48,11 @@ export default function CreateBlogFormServer() {
             },
             body: JSON.stringify(blogData),
         });
+
+        if (res.ok) {
+            revalidateTag("blogPosts", "max");
+            // updateTag("blogPosts"); // Use either one of them
+        }
 
         console.log("Create blog response status:", res);
     };
