@@ -54,7 +54,6 @@ export default function CreateBlogFormServer() {
             // updateTag("blogPosts"); // Use either one of them
         }
 
-        console.log("Create blog response status:", res);
     };
 
     return (

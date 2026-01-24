@@ -59,7 +59,6 @@ export function CreateBlogFormClient() {
 
             };
 
-            console.log(blogData);
 
             try {
                 const res = await createBlogPost(blogData)

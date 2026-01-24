@@ -6,13 +6,12 @@ import {getBlogs} from "@/app/(commonLayout)/actions/blog.action";
 export default function AboutPage() {
 
     const [data, setData] = useState();
-    console.log(data)
+
 
     useEffect(() => {
         (async () => {
             const {data} = await getBlogs();
             setData(data);
-            console.log("About Page Data:", data);
         })();
     }, []);
 

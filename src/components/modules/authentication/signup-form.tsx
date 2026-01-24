@@ -48,7 +48,7 @@ export function SignupForm({...props}: React.ComponentProps<typeof Card>) {
             }catch (err){
                 toast.error("Something went wrong!", {id: toastId});
             }
-            console.log('Form submitted with values:', value);
+
         }
     })
 
