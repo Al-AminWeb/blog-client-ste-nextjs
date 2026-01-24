@@ -66,7 +66,7 @@ export function CreateBlogFormClient() {
 
 
                 if (res.error){
-                    toast.error()
+                    toast.error("something went wrong!")
                     return;
                 }
 
